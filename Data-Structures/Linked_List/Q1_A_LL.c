@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section A - 연결 리스트 문제
-목적: 문제 1에서 요구하는 함수 구현 */
+Lab Test: Section A - Linked List Questions
+Purpose: Implementing the required functions for Question 1 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -14,17 +14,17 @@ Lab Test: Section A - 연결 리스트 문제
 typedef struct _listnode{
 	int item;
 	struct _listnode *next;
-} ListNode;			// ListNode의 정의를 변경하지 마세요
+} ListNode;			// You should not change the definition of ListNode
 
 typedef struct _linkedlist{
 	int size;
 	ListNode *head;
-} LinkedList;			// LinkedList의 정의를 변경하지 마세요
+} LinkedList;			// You should not change the definition of LinkedList
 
 
 ///////////////////////// function prototypes ////////////////////////////////////
 
-// 이 함수의 프로토타입을 변경하지 마세요
+//You should not change the prototype of this function
 int insertSortedLL(LinkedList *ll, int item);
 
 void printList(LinkedList *ll);
@@ -42,34 +42,34 @@ int main()
 	int c, i, j;
 	c = 1;
 
-	// 연결 리스트 1을 빈 연결 리스트로 초기화
+	//Initialize the linked list 1 as an empty linked list
 	ll.head = NULL;
 	ll.size = 0;
 
-	printf("1: 정렬된 연결 리스트에 정수 삽입:\n");
-	printf("2: 가장 최근에 입력한 값의 인덱스 출력:\n");
-	printf("3: 정렬된 연결 리스트 출력:\n");
-	printf("0: 종료:");
+	printf("1: Insert an integer to the sorted linked list:\n");
+	printf("2: Print the index of the most recent input value:\n");
+	printf("3: Print sorted linked list:\n");
+	printf("0: Quit:");
 
 	while (c != 0)
 	{
-		printf("\n선택을 입력하세요(1/2/3/0): ");
+		printf("\nPlease input your choice(1/2/3/0): ");
 		scanf("%d", &c);
 
 		switch (c)
 		{
 		case 1:
-			printf("연결 리스트에 추가할 정수를 입력하세요: ");
+			printf("Input an integer that you want to add to the linked list: ");
 			scanf("%d", &i);
 			j = insertSortedLL(&ll, i);
-			printf("결과 연결 리스트: ");
+			printf("The resulting linked list is: ");
 			printList(&ll);
 			break;
 		case 2:
 			printf("The value %d was added at index %d\n", i, j);
 			break;
 		case 3:
-			printf("결과 정렬된 연결 리스트: ");
+			printf("The resulting sorted linked list is: ");
 			printList(&ll);
 			removeAllItems(&ll);
 			break;
@@ -77,7 +77,7 @@ int main()
 			removeAllItems(&ll);
 			break;
 		default:
-			printf("알 수 없는 선택입니다;\n");
+			printf("Choice unknown;\n");
 			break;
 		}
 
@@ -90,8 +90,35 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* 여기에 코드를 작성하세요 */
+    ListNode *newNode;
+    ListNode *cur;
+
+    newNode = malloc(sizeof(ListNode));
+    if (newNode == NULL)
+        return 0;
+
+    newNode->item = item;
+    newNode->next = NULL;
+
+    if (ll->head == NULL || item <= ll->head->item) {
+        newNode->next = ll->head;
+        ll->head = newNode;
+        ll->size++;
+        return 1;
+    }
+
+    cur = ll->head;
+    while (cur->next != NULL && cur->next->item < item) {
+        cur = cur->next;
+    }
+
+    newNode->next = cur->next;
+    cur->next = newNode;
+    ll->size++;
+
+    return 1;
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -103,7 +130,7 @@ void printList(LinkedList *ll){
 	cur = ll->head;
 
 	if (cur == NULL)
-		printf("비어있음");
+		printf("Empty");
 	while (cur != NULL)
 	{
 		printf("%d ", cur->item);
@@ -157,7 +184,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// 빈 리스트이거나 첫 번째 노드 삽입 시, head 포인터 업데이트 필요
+	// If empty list or inserting first node, need to update head pointer
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -168,8 +195,8 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// 목표 위치의 이전 노드와 현재 노드 찾기
-	// 새 노드를 만들고 링크 재연결
+	// Find the nodes before and at the target position
+	// Create a new node and reconnect the links
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -187,11 +214,11 @@ int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;
 
-	// 삭제 가능한 최대 인덱스는 size-1
+	// Highest index we can remove is size-1
 	if (ll == NULL || index < 0 || index >= ll->size)
 		return -1;
 
-	// 첫 번째 노드 삭제 시, head 포인터 업데이트 필요
+	// If removing first node, need to update head pointer
 	if (index == 0){
 		cur = ll->head->next;
 		free(ll->head);
@@ -201,8 +228,8 @@ int removeNode(LinkedList *ll, int index){
 		return 0;
 	}
 
-	// 목표 위치의 이전 노드와 다음 노드 찾기
-	// 목표 노드를 해제하고 링크 재연결
+	// Find the nodes before and after the target position
+	// Free the target node and reconnect the links
 	if ((pre = findNode(ll, index - 1)) != NULL){
 
 		if (pre->next == NULL)
