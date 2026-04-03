@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section E - Binary Trees Questions
-Purpose: Implementing the required functions for Question 2 */
+Lab Test: Section E - 이진 트리 문제
+목적: 문제 2에서 요구하는 함수 구현 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +14,7 @@ typedef struct _btnode{
 	int item;
 	struct _btnode *left;
 	struct _btnode *right;
-} BTNode;   // You should not change the definition of BTNode
+} BTNode;   // BTNode의 정의를 변경하지 마세요
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@ typedef struct _stack{
 
 ///////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototypes of these functions
+// 이 함수들의 프로토타입을 변경하지 마세요
 int maxHeight(BTNode *node);
 
 BTNode *createBTNode(int item);
@@ -52,12 +52,12 @@ int main()
     BTNode *root;
     root = NULL;
 
-    printf("1: Create a binary tree.\n");
-    printf("2: Find the maximum height of the binary tree.\n");
-    printf("0: Quit;\n");
+    printf("1: 이진 트리 생성.\n");
+    printf("2: 이진 트리의 최대 높이 찾기.\n");
+    printf("0: 종료;\n");
 
     while(c != 0){
-        printf("\nPlease input your choice(1/2/0): ");
+        printf("\n선택을 입력하세요(1/2/0): ");
         if(scanf("%d", &c) > 0)
         {
             switch(c)
@@ -65,20 +65,20 @@ int main()
             case 1:
                 removeAll(&root);
                 root = createTree();
-                printf("The resulting binary tree is: ");
+                printf("결과 이진 트리: ");
                 printTree(root);
                 printf("\n");
                 break;
             case 2:
                 c = maxHeight(root);
-                printf("The maximum height of the binary tree is: %d\n",c);
+                printf("이진 트리의 최대 높이: %d\n",c);
                 removeAll(&root);
                 break;
             case 0:
                 removeAll(&root);
                 break;
             default:
-                printf("Choice unknown;\n");
+                printf("알 수 없는 선택입니다;\n");
                 break;
             }
 		}
@@ -97,7 +97,7 @@ int main()
 int maxHeight(BTNode *node)
 
 {
-    /* add your code here */
+    /* 여기에 코드를 작성하세요 */
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -123,8 +123,8 @@ BTNode *createTree()
     stk.top = NULL;
     root = NULL;
 
-    printf("Input an integer that you want to add to the binary tree. Any Alpha value will be treated as NULL.\n");
-    printf("Enter an integer value for the root: ");
+    printf("이진 트리에 추가할 정수를 입력하세요. 알파 값은 NULL로 처리됩니다.\n");
+    printf("루트 노드의 정수 값을 입력하세요: ");
     if(scanf("%d",&item) > 0)
     {
         root = createBTNode(item);
@@ -138,7 +138,7 @@ BTNode *createTree()
     while((temp =pop(&stk)) != NULL)
     {
 
-        printf("Enter an integer value for the Left child of %d: ", temp->item);
+        printf("%d의 왼쪽 자식 노드의 정수 값을 입력하세요: ", temp->item);
 
         if(scanf("%d",&item)> 0)
         {
@@ -149,7 +149,7 @@ BTNode *createTree()
             scanf("%c",&s);
         }
 
-        printf("Enter an integer value for the Right child of %d: ", temp->item);
+        printf("%d의 오른쪽 자식 노드의 정수 값을 입력하세요: ", temp->item);
         if(scanf("%d",&item)>0)
         {
             temp->right = createBTNode(item);

@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section E - Binary Trees Questions
-Purpose: Implementing the required functions for Question 3 */
+Lab Test: Section E - 이진 트리 문제
+목적: 문제 3에서 요구하는 함수 구현 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@ typedef struct _btnode
     int item;
     struct _btnode *left;
     struct _btnode *right;
-} BTNode;   // You should not change the definition of BTNode
+} BTNode;   // BTNode의 정의를 변경하지 마세요
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -32,7 +32,7 @@ typedef struct _stack
 
 ///////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototypes of these functions
+// 이 함수들의 프로토타입을 변경하지 마세요
 int countOneChildNodes(BTNode *node);
 
 BTNode *createBTNode(int item);
@@ -56,13 +56,13 @@ int main()
     root = NULL;
 
 
-    printf("1: Create a binary tree.\n");
-    printf("2: Count the number of nodes that have exactly one child node.\n");
-    printf("0: Quit;\n");
+    printf("1: 이진 트리 생성.\n");
+    printf("2: 자식 노드가 정확히 하나인 노드 수 세기.\n");
+    printf("0: 종료;\n");
 
     while(c != 0)
     {
-        printf("Please input your choice(1/2/0): ");
+        printf("선택을 입력하세요(1/2/0): ");
         if( scanf("%d",&c) > 0)
         {
             switch(c)
@@ -70,20 +70,20 @@ int main()
             case 1:
                 removeAll(&root);
                 root = createTree();
-                printf("The resulting binary tree is: ");
+                printf("결과 이진 트리: ");
                 printTree(root);
                 printf("\n");
                 break;
             case 2:
                 s = countOneChildNodes(root);
-                printf("The number of nodes that have exactly one child node is: %d.\n", s);
+                printf("자식 노드가 정확히 하나인 노드의 수: %d.\n", s);
                 removeAll(&root);
                 break;
             case 0:
                 removeAll(&root);
                 break;
             default:
-                printf("Choice unknown;\n");
+                printf("알 수 없는 선택입니다;\n");
                 break;
             }
         }
@@ -101,7 +101,7 @@ int main()
 int countOneChildNodes(BTNode *node)
 
 {
-    /* add your code here */
+    /* 여기에 코드를 작성하세요 */
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -127,8 +127,8 @@ BTNode *createTree()
 
     stack.top = NULL;
     root = NULL;
-    printf("Input an integer that you want to add to the binary tree. Any Alpha value will be treated as NULL.\n");
-    printf("Enter an integer value for the root: ");
+    printf("이진 트리에 추가할 정수를 입력하세요. 알파 값은 NULL로 처리됩니다.\n");
+    printf("루트 노드의 정수 값을 입력하세요: ");
     if(scanf("%d",&item) > 0)
     {
         root = createBTNode(item);
@@ -142,7 +142,7 @@ BTNode *createTree()
     while((temp =pop(&stack)) != NULL)
     {
 
-        printf("Enter an integer value for the Left child of %d: ", temp->item);
+        printf("%d의 왼쪽 자식 노드의 정수 값을 입력하세요: ", temp->item);
 
         if(scanf("%d",&item)> 0)
         {
@@ -153,7 +153,7 @@ BTNode *createTree()
             scanf("%c",&s);
         }
 
-        printf("Enter an integer value for the Right child of %d: ", temp->item);
+        printf("%d의 오른쪽 자식 노드의 정수 값을 입력하세요: ", temp->item);
         if(scanf("%d",&item)>0)
         {
             temp->right = createBTNode(item);

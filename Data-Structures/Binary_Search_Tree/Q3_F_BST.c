@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section F - Binary Search Trees Questions
-Purpose: Implementing the required functions for Question 3 */
+Lab Test: Section F - 이진 탐색 트리 문제
+목적: 문제 3에서 요구하는 함수 구현 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -15,26 +15,26 @@ typedef struct _bstnode{
 	int item;
 	struct _bstnode *left;
 	struct _bstnode *right;
-} BSTNode;   // You should not change the definition of BSTNode
+} BSTNode;   // BSTNode의 정의를 변경하지 마세요
 
 typedef struct _stackNode{
 	BSTNode *data;
 	struct _stackNode *next;
-}StackNode; // You should not change the definition of StackNode
+}StackNode; // StackNode의 정의를 변경하지 마세요
 
 typedef struct _stack
 {
 	StackNode *top;
-}Stack; // You should not change the definition of Stack
+}Stack; // Stack의 정의를 변경하지 마세요
 
 ///////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototypes of these functions
+// 이 함수들의 프로토타입을 변경하지 마세요
 void preOrderIterative(BSTNode *root);
 
 void insertBSTNode(BSTNode **node, int value);
 
-// You may use the following functions or you may write your own
+// 아래 함수들을 사용하거나 직접 작성해도 됩니다
 void push(Stack *stack, BSTNode *node);
 BSTNode *pop(Stack *s);
 BSTNode *peek(Stack *s);
@@ -48,37 +48,37 @@ int main()
 	int c, i;
 	c = 1;
 
-	//Initialize the Binary Search Tree as an empty Binary Search Tree
+	// 이진 탐색 트리를 빈 이진 탐색 트리로 초기화
 	BSTNode * root;
 	root = NULL;
 
-	printf("1: Insert an integer into the binary search tree;\n");
-	printf("2: Print the pre-order traversal of the binary search tree;\n");
-	printf("0: Quit;\n");
+	printf("1: 이진 탐색 트리에 정수 삽입;\n");
+	printf("2: 이진 탐색 트리의 전위 순회 출력;\n");
+	printf("0: 종료;\n");
 
 
 	while (c != 0)
 	{
-		printf("Please input your choice(1/2/0): ");
+		printf("선택을 입력하세요(1/2/0): ");
 		scanf("%d", &c);
 
 		switch (c)
 		{
 		case 1:
-			printf("Input an integer that you want to insert into the Binary Search Tree: ");
+			printf("이진 탐색 트리에 삽입할 정수를 입력하세요: ");
 			scanf("%d", &i);
 			insertBSTNode(&root, i);
 			break;
 		case 2:
-			printf("The resulting pre-order traversal of the binary search tree is: ");
-			preOrderIterative(root); // You need to code this function
+			printf("이진 탐색 트리의 전위 순회 결과: ");
+			preOrderIterative(root); // 이 함수를 직접 구현해야 합니다
 			printf("\n");
 			break;
 		case 0:
 			removeAll(&root);
 			break;
 		default:
-			printf("Choice unknown;\n");
+			printf("알 수 없는 선택입니다;\n");
 			break;
 		}
 
@@ -91,7 +91,7 @@ int main()
 
 void preOrderIterative(BSTNode *root)
 {
-	 /* add your code here */
+	 /* 여기에 코드를 작성하세요 */
 }
 
 ///////////////////////////////////////////////////////////////////////////////

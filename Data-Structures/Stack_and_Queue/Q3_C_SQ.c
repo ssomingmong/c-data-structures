@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section C - Stack and Queue Questions
-Purpose: Implementing the required functions for Question 3 */
+Lab Test: Section C - 스택과 큐 문제
+목적: 문제 3에서 요구하는 함수 구현 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ typedef struct stack{
 
 ////////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototypes of these functions
+// 이 함수들의 프로토타입을 변경하지 마세요
 int isStackPairwiseConsecutive(Stack *s);
 
 void push(Stack *s, int item);
@@ -59,31 +59,31 @@ int main()
 
     c =1;
 
-    printf("1: Insert an integer into the stack:\n");
-    printf("2: Check the stack is pairwise consecutive:\n");
-    printf("0: Quit:\n");
+    printf("1: 스택에 정수 삽입:\n");
+    printf("2: 스택이 쌍별 연속인지 확인:\n");
+    printf("0: 종료:\n");
 
     while (c != 0)
 	{
-		printf("Please input your choice(1/2/0): ");
+		printf("선택을 입력하세요(1/2/0): ");
 		scanf("%d", &c);
 
 		switch (c)
 		{
 		case 1:
-			printf("Input an integer that you want to insert into the stack: ");
+			printf("스택에 삽입할 정수를 입력하세요: ");
 			scanf("%d", &value);
 			push(&s, value);
-			printf("The stack is: ");
+			printf("스택: ");
             printList(&(s.ll));
 			break;
 		case 2:
             if(isStackPairwiseConsecutive(&s))
             {
-                printf("The stack is pairwise consecutive.\n");
+                printf("스택은 쌍별 연속입니다.\n");
             }
             else{
-                printf("The stack is not pairwise consecutive.\n");
+                printf("스택은 쌍별 연속이 아닙니다.\n");
             }
             removeAllItems(&(s.ll));
             break;
@@ -91,7 +91,7 @@ int main()
 			removeAllItems(&(s.ll));
 			break;
 		default:
-			printf("Choice unknown;\n");
+			printf("알 수 없는 선택입니다;\n");
 			break;
 		}
 	}
@@ -103,7 +103,7 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+  /* 여기에 코드를 작성하세요 */
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +142,7 @@ void printList(LinkedList *ll){
 	cur = ll->head;
 
 	if (cur == NULL)
-		printf("Empty");
+		printf("비어있음");
 	while (cur != NULL)
 	{
 		printf("%d ", cur->item);
@@ -180,7 +180,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// 빈 리스트이거나 첫 번째 노드 삽입 시, head 포인터 업데이트 필요
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -191,8 +191,8 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// Find the nodes before and at the target position
-	// Create a new node and reconnect the links
+	// 목표 위치의 이전 노드와 현재 노드 찾기
+	// 새 노드를 만들고 링크 재연결
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -210,11 +210,11 @@ int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;
 
-	// Highest index we can remove is size-1
+	// 삭제 가능한 최대 인덱스는 size-1
 	if (ll == NULL || index < 0 || index >= ll->size)
 		return -1;
 
-	// If removing first node, need to update head pointer
+	// 첫 번째 노드 삭제 시, head 포인터 업데이트 필요
 	if (index == 0){
 		cur = ll->head->next;
 		free(ll->head);
@@ -224,8 +224,8 @@ int removeNode(LinkedList *ll, int index){
 		return 0;
 	}
 
-	// Find the nodes before and after the target position
-	// Free the target node and reconnect the links
+	// 목표 위치의 이전 노드와 다음 노드 찾기
+	// 목표 노드를 해제하고 링크 재연결
 	if ((pre = findNode(ll, index - 1)) != NULL){
 
 		if (pre->next == NULL)
