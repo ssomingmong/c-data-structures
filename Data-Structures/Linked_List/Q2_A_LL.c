@@ -101,9 +101,54 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/*
+ * ll1 = [1, 3, 5], ll2 = [2, 4, 6] 이면
+ * 결과: ll1 = [1, 2, 3, 4, 5, 6], ll2 = [] (빈 리스트)
+ *
+ * ll2의 노드들을 ll1에 한 칸씩 끼워 넣는 방식으로 병합한다.
+ * ll2가 ll1보다 길면 남은 ll2 노드들을 ll1 끝에 이어 붙인다.
+ * ll1이 ll2보다 길면 ll1의 나머지 노드들은 그대로 유지된다.
+ */
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* 여기에 코드를 작성하세요 */
+	ListNode *cur1 = ll1 -> head;  // ll1 현재 노드
+	ListNode *cur2 = ll2 -> head;  // ll2 현재 노드
+	ListNode *next1, *next2;       // 다음 노드를 미리 저장 (포인터 변경 전에 백업)
+	ListNode *last_cur2 = NULL;    // 루프에서 마지막으로 처리된 ll2 노드 (ll2 잔여 노드 연결에 사용)
+
+	// ll1, ll2 모두 노드가 남아있는 동안 교대로 병합
+	while (cur1 != NULL && cur2 != NULL){
+		next1 = cur1 -> next;  // cur1의 원래 다음 노드 백업
+		next2 = cur2 -> next;  // cur2의 원래 다음 노드 백업
+
+		cur1 -> next = cur2;   // ll1 노드 뒤에 ll2 노드 연결: cur1 -> cur2
+		cur2 -> next = next1;  // ll2 노드 뒤에 ll1의 다음 노드 연결: cur2 -> next1
+		last_cur2 = cur2;      // 마지막으로 삽입된 ll2 노드 기록
+
+		cur1 = next1;          // ll1 포인터를 다음 ll1 노드로 이동
+		cur2 = next2;          // ll2 포인터를 다음 ll2 노드로 이동
+	}
+
+	// ll2가 ll1보다 길어서 남은 ll2 노드가 있는 경우, ll1 끝에 이어 붙임
+	if (cur2 != NULL) {
+		if (last_cur2 != NULL) {
+			// 루프에서 마지막으로 처리된 ll2 노드 뒤에 나머지 ll2를 연결
+			last_cur2 -> next = cur2;
+		}
+		else {
+			// ll1이 처음부터 비어있었던 경우, ll2의 나머지를 ll1의 head로 설정
+			ll1 -> head = cur2;
+		}
+	}
+
+	// ll1의 size를 두 리스트의 합으로 갱신
+	ll1->size = ll1->size + ll2->size;
+	// ll2의 노드들은 이제 모두 ll1에 속하므로, ll2를 빈 리스트로 초기화
+	// (초기화하지 않으면 removeAllItems 호출 시 이미 해제된 노드를 다시 해제해 double free 발생)
+	ll2->head = NULL;
+	ll2->size = 0;
+
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
