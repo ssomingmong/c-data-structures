@@ -86,45 +86,45 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	if(ll -> head == NULL) return;  // 빈 리스트면 할 일 없음
+	if(ll -> head == NULL) return;
 
-	ListNode *cur = ll -> head;    // 현재 순회 중인 노드
-	ListNode *prev = NULL;         // cur 바로 앞 노드 (홀수 분리 시 연결 끊을 때 필요)
-	ListNode *odd_head = NULL;     // 홀수 노드 체인의 시작점
-	ListNode *odd_tail = NULL;     // 홀수 노드 체인의 끝 (새 홀수 노드를 여기에 붙임)
+	ListNode *cur = ll -> head;
+	ListNode *prev = NULL;
+	ListNode *odd_head = NULL;
+	ListNode *odd_tail = NULL;
 
 	while(cur != NULL) {
-		if(cur -> next -> item % 2 != 0) {  // 현재 노드가 홀수인 경우
-			// 홀수 노드를 원래 자리에서 분리
-			if(prev == NULL) {
-				ll -> head = cur -> next;    // head가 홀수인 경우, head를 다음 노드로 변경
-			}
-			else prev -> next = cur -> next; // 중간 노드인 경우, 앞 노드가 다음 노드를 가리키게 함
+		ListNode *next = cur -> next;
 
-			// 홀수 체인 끝에 분리한 노드 붙이기
+		if(cur -> item % 2 != 0) {
+			if(prev == NULL) {
+				ll -> head = next;
+			}
+			else prev -> next = next;
+
 			cur -> next = NULL;
 			if(odd_head == NULL) {
-				odd_head = odd_tail = cur;   // 홀수 체인이 비어있으면 첫 노드로 설정
+				odd_head = odd_tail = cur;
 			}
 			else {
-				odd_tail -> next = cur;      // 홀수 체인 끝에 연결
-				odd_tail = cur;              // 홀수 체인 끝 포인터 이동
+				odd_tail -> next = cur;
+				odd_tail = cur;
 			}
 		}
 		else {
-			prev = cur;  // 짝수 노드는 그대로 두고 prev만 이동
+			prev = cur;
 		}
-		cur = cur -> next;  // 다음 노드로 이동
+		cur = next;
 	}
 
-	// 순회 완료 후 짝수 체인 끝에 홀수 체인 연결
 	if(odd_head != NULL) {
 		if(prev == NULL) {
-			ll -> head = odd_head;     // 짝수 노드가 하나도 없는 경우
+			ll -> head = odd_head;
 		}
-		else prev -> next = odd_head;  // 짝수 체인의 마지막 노드 뒤에 홀수 체인 연결
+		else prev -> next = odd_head;
 	}
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
