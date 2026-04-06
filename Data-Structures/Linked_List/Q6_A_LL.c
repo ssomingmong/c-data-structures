@@ -88,7 +88,31 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* 여기에 코드를 작성하세요 */
+	ListNode *cur = *ptrHead;   // 순회용 포인터, 첫 번째 노드부터 시작
+	ListNode *maxpre = NULL;    // 최댓값 노드의 이전 노드
+	ListNode *max = *ptrHead;   // 최댓값 노드 (일단 head로 초기화)
+	ListNode *pre = NULL;       // cur의 이전 노드
+
+	if(*ptrHead == NULL) return 0;  // 빈 리스트면 종료
+
+	// 리스트 전체 순회하며 최댓값 탐색
+	while(cur != NULL) {
+		if(cur -> item > max -> item) {
+			max = cur;      // 최댓값 노드 갱신
+			maxpre = pre;   // 최댓값의 이전 노드 갱신
+		}
+		pre = cur;
+		cur = cur -> next;
+	}
+
+	// 최댓값이 이미 head이면 이동 불필요
+	if(maxpre == NULL) return 1;
+
+	maxpre -> next = max -> next;  // 최댓값 노드를 리스트에서 분리
+	max -> next = *ptrHead;        // 최댓값 노드가 기존 head를 가리키게 함
+	*ptrHead = max;                // head를 최댓값 노드로 변경
+
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
