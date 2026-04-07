@@ -125,10 +125,15 @@ void removeEvenValues(Stack *s)
 	temp.ll.head = NULL;
 	temp.ll.size = 0;
 
-	while(!isempthStack(s)) {
-		if(pop(s) % 2 != 0) {
-			push(&temp, pop(s));
+	while(!isEmptyStack(s)) {
+		int val = pop(s);
+		if(val % 2 != 0) {
+			push(&temp, val);
 		}
+	}
+
+	while(!isEmptyStack(&temp)) {
+		push(s, pop(&temp));
 	}
 }
 
