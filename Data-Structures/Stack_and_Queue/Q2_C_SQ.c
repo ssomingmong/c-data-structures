@@ -113,12 +113,23 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* 여기에 코드를 작성하세요 */
+	for(int i = ll -> size - 1; i >= 0; i--) {
+		ListNode *node = findNode(ll, i);
+		push(s, node -> item);
+	}
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* 여기에 코드를 작성하세요 */
+	Stack temp;
+	temp.ll.head = NULL;
+	temp.ll.size = 0;
+
+	while(!isempthStack(s)) {
+		if(pop(s) % 2 != 0) {
+			push(&temp, pop(s));
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
